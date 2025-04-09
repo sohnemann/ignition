@@ -1,5 +1,5 @@
 variant: fcos
-version: 1.5.0
+version: 1.6.0
 
 # Hostname
 storage:
@@ -30,7 +30,7 @@ ignition:
     tls:
       certificate_authorities: []
   timeouts: {}
-  version: 3.4.0
+  #version: 3.4.0
   # Install directive
   # This only applies if using FCOS live ISO/kernel/initrd + `coreos-installer`
   # If embedding, you don't need this
