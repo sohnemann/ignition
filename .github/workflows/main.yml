@@ -17,5 +17,4 @@ jobs:
 
     - name: Run butane
       run: |
-        podman run --interactive --rm --security-opt label=disable --volume "${PWD}:/pwd" --workdir /pwd quay.io/coreos/butane:release \  
-        --pretty --strict butane.bu > ignition.ign
+        podman run --interactive --rm --security-opt label=disable --volume "${PWD}:/pwd" --workdir /pwd quay.io/coreos/butane:release --pretty --strict butane.bu > ignition.ign
