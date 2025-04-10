@@ -40,9 +40,18 @@ storage:
           size_mib: 16384  # adjust this as needed
         - number: 2
           label: docker
-          size_mib: 0  # zero = rest of the space
+          size_mib: 65536 # adjust this as needed
+        - number: 3
+          label: root
+          size_mib: 0  # rest of the disk
 
   filesystems:
+    - path: /
+      device: /dev/disk/by-partlabel/root
+      format: ext4
+      label: root
+      wipe_filesystem: true  # Be careful not to wipe this unless intentional
+
     - path: /var
       device: /dev/disk/by-partlabel/var
       format: btrfs
