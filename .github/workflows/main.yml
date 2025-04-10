@@ -1,11 +1,12 @@
 name: Build ignition file
 on:
   push:
-  
+permissions:
+  contents: write
 jobs:
   build-frontend-build-environment:
     runs-on: ubuntu-24.04
-    
+   
     steps:
     - name: Install Podman
       run: |
@@ -18,7 +19,7 @@ jobs:
     - name: Run butane
       run: |
         podman run --interactive --rm --security-opt label=disable --volume "${PWD}:/pwd" --workdir /pwd quay.io/coreos/butane:release --pretty --strict butane.bu > ignition.ign
-        git config user.name sohnemann
+        git config user.name github-actions[bot]
         git config user.email 50672942+sohnemann@users.noreply.github.com
         git add ignition.ign
         git commit -m "Updated ignition file."
