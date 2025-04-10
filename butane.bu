@@ -11,6 +11,8 @@ systemd:
   units:
     - name: sshd.service
       enabled: true
+    - name: fstrim.timer
+      enabled: true
 
 storage:
   disks:
@@ -22,6 +24,8 @@ storage:
           size_mib: 16384  # adjust this as needed
         - number: 2
           label: docker
+          size_mib: 0  # zero = rest of the space
+
   filesystems:
     - path: /var
       device: /dev/disk/by-partlabel/var
@@ -29,16 +33,21 @@ storage:
       wipe_filesystem: true
       label: var
       with_mount_unit: true
+      mount_options:
+        - noatime
+
     - path: /docker
       device: /dev/disk/by-partlabel/docker
       format: ext4
       wipe_filesystem: true
       label: docker
       with_mount_unit: true
-  
+      mount_options:
+        - noatime
+        - discard
+
   files:
     - path: /etc/hostname
       mode: 0644
       contents:
         inline: tui
-
