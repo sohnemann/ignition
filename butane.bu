@@ -32,6 +32,8 @@ systemd:
 
 storage:
   disks:
+    - device: /dev/sda
+      wipe_table: true
     - device: /dev/nvme0n1
       wipe_table: true
       partitions:
