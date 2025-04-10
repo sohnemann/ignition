@@ -13,6 +13,22 @@ systemd:
       enabled: true
     - name: fstrim.timer
       enabled: true
+    - name: docker.mount
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Mount /docker
+        After=var.mount
+        Requires=var.mount
+
+        [Mount]
+        Where=/docker
+        What=/dev/disk/by-partlabel/docker
+        Type=ext4
+        Options=defaults,noatime,discard
+
+        [Install]
+        WantedBy=local-fs.target
 
 storage:
   disks:
@@ -41,7 +57,6 @@ storage:
       format: ext4
       wipe_filesystem: true
       label: docker
-      with_mount_unit: true
       mount_options:
         - noatime
         - discard
