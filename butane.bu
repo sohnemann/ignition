@@ -35,7 +35,7 @@ storage:
       mount_options:
         - noatime
 
-    - path: /docker
+    - path: /var/docker
       device: /dev/disk/by-partlabel/docker
       format: ext4
       label: docker
