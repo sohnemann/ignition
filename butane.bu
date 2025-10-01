@@ -31,7 +31,6 @@ storage:
     - path: /var
       device: /dev/disk/by-partlabel/var
       format: btrfs
-      wipe_filesystem: true
       label: var
       with_mount_unit: true
       mount_options:
@@ -40,7 +39,6 @@ storage:
     - path: /docker
       device: /dev/disk/by-partlabel/docker
       format: ext4
-      wipe_filesystem: true
       label: docker
       with_mount_unit: true
       mount_options:
