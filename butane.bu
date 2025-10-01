@@ -25,9 +25,8 @@ storage:
         - number: 2
           label: docker
           size_mib: 65536
-        # root will be handled by installer
-
- filesystems:
+ 
+  filesystems:
     - path: /var
       device: /dev/disk/by-partlabel/var
       format: btrfs
