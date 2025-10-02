@@ -15,7 +15,7 @@
   "storage": {
     "disks": [
       {
-        "device": "/dev/nvme0n1",
+        "device": "/dev/sda",
         "partitions": [
           {
             "label": "var",
