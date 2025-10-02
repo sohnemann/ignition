@@ -16,7 +16,7 @@ systemd:
 
 storage:
   disks:
-    - device: /dev/nvme0n1
+    - device: /dev/sda
       wipe_table: true
       partitions:
         - number: 1
