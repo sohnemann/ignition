@@ -49,7 +49,7 @@ systemd:
         WantedBy=multi-user.target
     - name: ucore-signed-autorebase.service
       enabled: true
-      contents: |
+      contents: | 
         [Unit]
         Description=uCore autorebase to signed OCI and reboot
         ConditionPathExists=/etc/ucore-autorebase/unverified
