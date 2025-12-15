@@ -33,7 +33,7 @@ jobs:
           set -euo pipefail
           cd ipxe/src
           # Build the UEFI x86_64 EFI application (ipxe.efi)
-          make -j$(nproc) bin-x86_64-efi/ipxe.efi
+          make -j$(nproc) bin-x86_64-efi/ipxe.efi EMBED=install.ipxe
           echo "Built files:"
           ls -lh bin-x86_64-efi || true
 
