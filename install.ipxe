@@ -8,7 +8,7 @@ set BASEURL http://192.168.1.56/fedora-coreos
 
 dhcp
 
-kernel ${BASEURL}/fedora-coreos-${VERSION}-live-kernel-x86_64 \
+kernel ${BASEURL}/fedora-coreos-${VERSION}-live-kernel.x86_64 \
   initrd=main \
   ignition.firstboot \
   ignition.platform.id=metal \
