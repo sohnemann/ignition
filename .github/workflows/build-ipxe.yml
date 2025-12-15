@@ -1,9 +1,9 @@
 # Build iPXE (x86_64 UEFI) and upload ipxe.efi
 # Triggers: push and manual dispatch
-name: Build iPXE x86_64
+name:  Build iPXE x86_64
 
 on:
-  push:
+  push: 
     branches:
       - main
       - master
@@ -12,7 +12,7 @@ on:
 jobs:
   build-ipxe-x86_64:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -28,11 +28,16 @@ jobs:
           # Remove --depth 1 to get full git history for version detection
           git clone https://github.com/ipxe/ipxe.git ipxe
 
-      - name: Build x86_64 UEFI iPXE (.efi)
+      - name: Copy embed script
+        run: |
+          # Copy install.ipxe from the repository to iPXE src directory
+          cp install.ipxe ipxe/src/
+
+      - name: Build x86_64 UEFI iPXE (.efi) with embedded script
         run: |
           set -euo pipefail
           cd ipxe/src
-          # Build the UEFI x86_64 EFI application (ipxe.efi)
+          # Build the UEFI x86_64 EFI application with embedded install.ipxe
           make -j$(nproc) bin-x86_64-efi/ipxe.efi EMBED=install.ipxe
           echo "Built files:"
           ls -lh bin-x86_64-efi || true
@@ -40,5 +45,5 @@ jobs:
       - name: Upload built ipxe.efi
         uses: actions/upload-artifact@v4
         with:
-          name: ipxe-x86_64-efi
+          name:  ipxe-x86_64-efi
           path: ipxe/src/bin-x86_64-efi/ipxe.efi
