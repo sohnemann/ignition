@@ -1,0 +1,44 @@
+# Build iPXE (x86_64 UEFI) and upload ipxe.efi
+# Triggers: push and manual dispatch
+name: Build iPXE x86_64
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-ipxe-x86_64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          # required: compiler, make, nasm for EFI builds, git
+          sudo apt-get install -y --no-install-recommends \
+            build-essential git nasm python3 python3-pip uuid-dev libssl-dev ca-certificates
+
+      - name: Clone iPXE source
+        run: |
+          # use the official GitHub mirror; you can change to the upstream ipxe.org git if desired
+          git clone --depth 1 https://github.com/ipxe/ipxe.git ipxe
+
+      - name: Build x86_64 UEFI iPXE (.efi)
+        run: |
+          set -euo pipefail
+          cd ipxe/src
+          # Build the UEFI x86_64 EFI application (ipxe.efi)
+          make -j$(nproc) bin-x86_64-efi/ipxe.efi
+          echo "Built files:"
+          ls -lh bin-x86_64-efi || true
+
+      - name: Upload built ipxe.efi
+        uses: actions/upload-artifact@v4
+        with:
+          name: ipxe-x86_64-efi
+          path: ipxe/src/bin-x86_64-efi/ipxe.efi
