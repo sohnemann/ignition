@@ -7,14 +7,40 @@ passwd:
         - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDY4Cku4z3JwIZB61WYDR0u8fPn/QHRhh4zZn2lQlVZa1M5yCJleUAlofK0WRNHDO4yYeCtxYWM/cslsovPAG4jG80iww/Gm2OySQtBY4ZR+w8O2gQyJwRRmno9QWGjSdlBfMNlD+cK44IvN4D1speqgdc9dQrn3KOjzpxfYY04UNYuVOLxm/u4tTVVqor/SZizSYjEX7XuEIhGlx9IiIHCMdpT2Gmi/PhsbhkoGx3z+WoIYInvwswctmRXL/9fmiSWDpswPygFMYuhYXQ1wXcJWw2ToaPkmEcdIIOUFdMRw73eivdQl6hu2GmxAf+mRGtgyHdlB6EuZyjBZSijji9V8Sy8A8GwNhTISlmYj1wIDkU/AM5kZJ3B5iQl0jmPQLUiF0eqW8ECAwJv23/kBMeLIFdXlDciJQYKCTedbzuzJCs3WA4Wkr8Pusi0D0vYV96ULRwFna+TUkYmVJpqx1fu3TbE92U3B+wfF+mcz0RxN/nEeUzo+3rtAK3GH6+m6UM= julian@kakariki
 
 storage:
+  disks:
+    - device: /dev/sda
+      wipe_table: true
+      partitions:
+        - label:  BIOS-BOOT
+          size_mib: 1
+          type_guid: 21686148-6449-6E6F-744E-656564454649
+        - label: ESP
+          size_mib: 127
+          type_guid: C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+        - label: boot
+          size_mib: 384
+        - label: root
+          size_mib: 0
+  filesystems:
+    - device: /dev/disk/by-partlabel/ESP
+      format: vfat
+      label: ESP
+      wipe_filesystem: true
+    - device: /dev/disk/by-partlabel/boot
+      format: ext4
+      label: boot
+      wipe_filesystem: true
+    - device: /dev/disk/by-partlabel/root
+      format: xfs
+      label: root
+      wipe_filesystem: true
   directories:
     - path: /etc/ucore-autorebase
-      mode:  0754
-  
+      mode: 0754
   files:
-    - path:  /etc/hostname
+    - path: /etc/hostname
       mode: 0644
-      contents: 
+      contents:
         inline: tui
 
 systemd:
@@ -51,7 +77,7 @@ systemd:
         [Service]
         Type=oneshot
         StandardOutput=journal+console
-        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/ublue-os/ucore:stable
+        ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/ublue-os/ucore: stable
         ExecStart=/usr/bin/touch /etc/ucore-autorebase/signed
         ExecStart=/usr/bin/systemctl disable ucore-signed-autorebase.service
         ExecStart=/usr/bin/systemctl reboot
