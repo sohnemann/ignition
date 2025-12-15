@@ -1,7 +1,7 @@
 #!ipxe
 
 set STREAM stable
-set VERSION 42.20250914.3.0
+set VERSION 43.20251110.3.1
 set INSTALLDEV /dev/sda
 set CONFIGURL https://sohnemann.github.io/ignition/ignition.ign
 set BASEURL http://192.168.1.56/fedora-coreos
