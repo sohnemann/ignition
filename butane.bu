@@ -45,7 +45,7 @@ storage:
 
 systemd:
   units: 
-    - name: sshd. service
+    - name: sshd.service
       enabled: true
     - name: ucore-unsigned-autorebase.service
       enabled: true
