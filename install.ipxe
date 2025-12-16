@@ -10,6 +10,7 @@ kernel ${BASEURL}/fedora-coreos-${VERSION}-live-kernel.x86_64 \
   initrd=main \
   ignition.firstboot \
   ignition.platform.id=metal \
+  coreos.live.rootfs_url=${BASEURL}/fedora-coreos-${VERSION}-live-rootfs.x86_64.img \
   coreos.inst.image_url=${BASEURL}/fedora-coreos-${VERSION}-metal.x86_64.raw.xz \
   coreos.inst.install_dev=/dev/sda \
   coreos.inst.ignition_url=${IGNITION} \
