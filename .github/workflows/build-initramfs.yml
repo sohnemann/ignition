@@ -1,0 +1,46 @@
+name: Build Custom CoreOS Initramfs
+
+on: 
+  push:
+    branches:  [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on:  ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Download CoreOS initramfs
+        run: |
+          curl -LO https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/43.20251110.3.1/x86_64/fedora-coreos-43.20251110.3.1-live-initramfs.x86_64.img
+      
+      - name: Build custom initramfs
+        run: |
+          docker run --pull=always --rm -i \
+            -v "$(pwd)":/data -w /data \
+            quay.io/coreos/coreos-installer:release \
+            pxe customize \
+            --dest-device /dev/sda \
+            --dest-ignition ignition.ign \
+            --dest-console ttyS0,115200n8 \
+            --dest-console tty0 \
+            -o custom-initramfs.img \
+            fedora-coreos-43.20251110.3.1-live-initramfs.x86_64.img
+      
+      - name: Upload custom initramfs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name:  custom-initramfs
+          path: custom-initramfs.img
+          retention-days: 90
+      
+      - name: Create Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files:  custom-initramfs.img
