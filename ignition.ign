@@ -7,7 +7,7 @@
       {
         "name": "core",
         "sshAuthorizedKeys": [
-          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDY4Cku4z3JwIZB61WYDR0u8fPn/QHRhh4zZn2lQlVZa1M5yCJleUAlofK0WRNHDO4yYeCtxYWM/cslsovPAG4jG80iww/Gm2OySQtBY4ZR+w8O2gQyJwRRmno9QWGjSdlBfMNlD+cK44IvN4D1speqgdc9dQrn3KOjzpxfYY04UNYuVOLxm/u4tTVVqor/SZizSYjEX7XuEIhGlx9IiIHCMdpT2Gmi/PhsbhkoGx3z+WoIYInvwswctmRXL/9fmiSWDpswPygFMYuhYXQ1wXcJWw2ToaPkmEcdIIOUFdMRw73eivdQl6hu2GmxAf+mRGtgyHdlB6EuZyjBZSijji9V8Sy8A8GwNhTISlmYj1wIDkU/AM5kZJ3B5iQl0jmPQLUiF0eqW8ECAwJv23/kBMeLIFdXlDciJQYKCTedbzuzJCs3WA4Wkr8Pusi0D0vYV96ULRwFna+TUkYmVJpqx1fu3TbE92U3B+wfF+mcz0RxN/nEeUzo+3rtAK3GH6+m6UM= julian@kakariki"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINWB9FlUYmZOF7s3xZsy+bHPyS6i/HkbHyYl8dyJ4QDM julian@kakariki"
         ]
       }
     ]
