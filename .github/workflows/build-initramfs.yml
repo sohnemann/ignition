@@ -30,7 +30,6 @@ jobs:
             --dest-ignition ignition.ign \
             --dest-console ttyS0,115200n8 \
             --dest-console tty0 \
-            --network-keyfile static-ip.nmconnection \
             -o custom-initramfs.img \
             fedora-coreos-43.20251110.3.1-live-initramfs.x86_64.img
       
