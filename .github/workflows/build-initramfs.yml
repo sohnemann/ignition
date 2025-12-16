@@ -23,17 +23,24 @@ jobs:
         run: |
           docker run --pull=always --rm -i \
             -v "$(pwd)":/data -w /data \
+            -u $(id -u):$(id -g) \
             quay.io/coreos/coreos-installer:release \
             pxe customize \
             --dest-device /dev/sda \
             --dest-ignition ignition.ign \
             --dest-console ttyS0,115200n8 \
             --dest-console tty0 \
+            --network-keyfile static-ip.nmconnection \
             -o custom-initramfs.img \
             fedora-coreos-43.20251110.3.1-live-initramfs.x86_64.img
       
+      - name:  Verify file permissions
+        run: |
+          ls -lh custom-initramfs.img
+          file custom-initramfs.img
+      
       - name: Upload custom initramfs artifact
-        uses: actions/upload-artifact@v4
+        uses:  actions/upload-artifact@v4
         with:
           name:  custom-initramfs
           path: custom-initramfs.img
@@ -43,4 +50,4 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          files:  custom-initramfs.img
+          files: custom-initramfs.img
